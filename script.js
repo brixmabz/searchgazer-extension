@@ -1,4 +1,3 @@
-import { webgazer } from "./searchgazer.js";
 // var searchgazer = document.createElement("script");
 
 // searchgazer.setAttribute(
@@ -8,11 +7,6 @@ import { webgazer } from "./searchgazer.js";
 // searchgazer.setAttribute("type", "text/javascript");
 // // searchgazer.onload = init_scripts();
 // document.head.appendChild(searchgazer);
-
-var jquery = document.createElement("script");
-
-jquery.setAttribute("src", "https://code.jquery.com/jquery-3.6.0.min.js");
-document.head.appendChild(jquery);
 
 // setTimeout(() => {
 //   webgazer
@@ -27,25 +21,25 @@ document.head.appendChild(jquery);
 //     .begin();
 // }, 3000);
 
-console.log(webgazer);
+// console.log(webgazer);
 
-function init_scripts() {
-  //   const html = `<script type="text/javascript">
-  //     $(function() {
-  //         console.log("IT IS READY")
-  //     });
-  //   </script>`;
+// function init_scripts() {
+//   //   const html = `<script type="text/javascript">
+//   //     $(function() {
+//   //         console.log("IT IS READY")
+//   //     });
+//   //   </script>`;
 
-  //   const scriptEl = document.createRange().createContextualFragment(html);
-  var scriptEl = document.createElement("script");
+//   //   const scriptEl = document.createRange().createContextualFragment(html);
+//   var scriptEl = document.createElement("script");
 
-  scriptEl.setAttribute("type", "text/javascript");
-  scriptEl.setAttribute(
-    "src",
-    "https://webgazer.cs.brown.edu/search/searchgazer.js"
-  );
-  document.body.appendChild(scriptEl);
-}
+//   scriptEl.setAttribute("type", "text/javascript");
+//   scriptEl.setAttribute(
+//     "src",
+//     "https://webgazer.cs.brown.edu/search/searchgazer.js"
+//   );
+//   document.body.appendChild(scriptEl);
+// }
 
 function loadScript(url, callback) {
   // Adding the script tag to the head as suggested before
