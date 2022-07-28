@@ -5,7 +5,7 @@
   "content_scripts": [
     {
       "matches": ["*://*.google.com/*"],
-      "js": ["searchgazer.js", "script.js"],
+      "js": ["webgazer.js", "script.js"],
       "css": ["styles.css"]
     }
   ]
