@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["*://*.google.com/*", "*://*.bing.com/*"],
       "js": ["webgazer.js", "script.js"],
       "css": ["styles.css"]
     }
@@ -12,5 +12,6 @@
   "browser_action": {
     "default_title": "Eye Searcher",
     "default_popup": "popup.html"
-  }
+  },
+  "permissions": ["storage", "unlimitedStorage"]
 }
