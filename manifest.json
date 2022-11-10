@@ -4,7 +4,11 @@
   "version": "0.1.0",
   "content_scripts": [
     {
-      "matches": ["*://*.google.com/*", "*://*.bing.com/*"],
+      "matches": [
+        "*://*.google.com/*",
+        "*://*.bing.com/*",
+        "https://webgazer-calibration-thesis.herokuapp.com/calibration.html"
+      ],
       "js": ["webgazer.js", "script.js"],
       "css": ["styles.css"]
     }
