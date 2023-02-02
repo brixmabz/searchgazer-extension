@@ -9,7 +9,7 @@
         "*://*.bing.com/*",
         "https://webgazer-calibration-thesis.herokuapp.com/calibration.html"
       ],
-      "js": ["webgazer.js", "script.js"],
+      "js": ["jquery.js", "webgazer.js", "script.js", "calibrate.js"],
       "css": ["styles.css"]
     }
   ],
@@ -17,5 +17,11 @@
     "default_title": "Eye Searcher",
     "default_popup": "popup.html"
   },
-  "permissions": ["storage", "unlimitedStorage"]
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "tabs",
+    "activeTab",
+    "scripting"
+  ]
 }

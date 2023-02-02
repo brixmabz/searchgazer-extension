@@ -51,15 +51,6 @@ window.onbeforeunload = function () {
 function createCircle() {
   let circle = document.createElement("div");
   circle.id = "gazer-circle";
-  circle.style.width = "30px";
-  circle.style.height = "30px";
-  circle.style.backgroundColor = "blue";
-  circle.style.borderRadius = "50%";
-  circle.style.position = "absolute";
-  circle.style.top = `-10%`;
-  circle.style.left = `-10%`;
-  circle.style.transform = "translate(-50%, -50%)";
-  circle.style.transition = "all .5s ease";
   document.body.appendChild(circle);
 }
 
@@ -79,3 +70,9 @@ function removeCircle() {
     document.body.removeChild(circle);
   }
 }
+
+chrome.runtime.onMessage.addListener((msg, sender, response) => {
+  if (msg.from === "popup" && msg.subject == "calibrate") {
+    showCalibration();
+  }
+});
