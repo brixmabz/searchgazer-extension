@@ -1,8 +1,10 @@
 window.saveDataAcrossSessions = true;
 let pastSecond = 0;
 let pointsData = [];
-let gazeCounter = 0;
+let scrollGazeCounter = 0;
+let clickGazeCounter = 0;
 let scrollerEnabled = false;
+let clickerEnabled = false;
 
 createCircle();
 
@@ -37,6 +39,7 @@ webgazer
 
         if (currentElement) {
           scrollerFunction(currentElement);
+          // clickerFunction(currentElement);
         }
 
         if (scrollerEnabled) {
@@ -103,8 +106,8 @@ function scrollerFunction(currentElement) {
     } else {
       $("button#scroller").css("background-color", "red");
     }
-    gazeCounter += 1;
-    if (gazeCounter === 3) {
+    scrollGazeCounter += 1;
+    if (scrollGazeCounter === 3) {
       scrollerEnabled = !scrollerEnabled;
       if (scrollerEnabled) {
         $("button#scroller").css("background-color", "green");
@@ -115,11 +118,38 @@ function scrollerFunction(currentElement) {
       }
     }
   } else {
-    gazeCounter = 0;
+    scrollGazeCounter = 0;
     if (!scrollerEnabled) {
       $("button#scroller").css("background-color", "transparent");
     } else {
       $("button#scroller").css("background-color", "green");
+    }
+  }
+}
+
+function clickerFunction(currentElement) {
+  if (currentElement.id == "clicker") {
+    if (!clickerEnabled) {
+      $("button#clicker").css("background-color", "green");
+    } else {
+      $("button#clicker").css("background-color", "red");
+    }
+    clickGazeCounter += 1;
+    if (clickGazeCounter === 3) {
+      clickerEnabled = !clickerEnabled;
+      if (clickerEnabled) {
+        $("button#clicker").css("background-color", "green");
+        alert("CLICKER IS ON!");
+      } else {
+        $("button#clicker").css("background-color", "transparent");
+      }
+    }
+  } else {
+    clickGazeCounter = 0;
+    if (!clickerEnabled) {
+      $("button#clicker").css("background-color", "transparent");
+    } else {
+      $("button#clicker").css("background-color", "green");
     }
   }
 }
@@ -131,3 +161,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
 });
 
 overlay();
+
+$(function () {
+  console.log($('a[href$="http"]'));
+});
