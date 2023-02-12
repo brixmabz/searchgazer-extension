@@ -7,10 +7,17 @@
       "matches": [
         "*://*.google.com/*",
         "*://*.bing.com/*",
+        "*://*.github.com/*",
         "https://webgazer-calibration-thesis.herokuapp.com/calibration.html"
       ],
-      "js": ["jquery.js", "webgazer.js", "script.js", "calibrate.js"],
-      "css": ["styles.css"]
+      "js": [
+        "jquery.js",
+        "webgazer.js",
+        "overlay.js",
+        "script.js",
+        "calibrate.js"
+      ],
+      "css": ["css/styles.css"]
     }
   ],
   "browser_action": {
