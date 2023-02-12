@@ -1,6 +1,6 @@
 function showCalibration() {
   alert("Please click all the red circles until they turn green.");
-  let click_required = 10;
+  let click_required = 20;
   let outer_div = document.createElement("div");
   outer_div.className = "outer-container";
 
@@ -48,7 +48,7 @@ function isCalibrationDone() {
   let done = true;
 
   $(".circle-btn").each(function (i, obj) {
-    if ($(this).data("value") < 10) {
+    if ($(this).data("value") < click_required) {
       done = false;
     }
   });
