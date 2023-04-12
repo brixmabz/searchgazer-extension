@@ -5,10 +5,10 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.google.com/*",
-        "*://*.bing.com/*",
-        "*://*.github.com/*",
-        "https://webgazer-calibration-thesis.herokuapp.com/calibration.html"
+        "https://www.google.com/",
+        "https://webgazer-calibration-thesis.herokuapp.com/calibration.html",
+        "http://127.0.0.1:5500/tictactoe.html",
+        "file:///C:/Users/chuck/Desktop/tictactoe/improvements/tictactoe.html"
       ],
       "js": [
         "jquery.js",

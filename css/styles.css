@@ -11,6 +11,19 @@
   z-index: 1010;
 }
 
+.click-circle {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s ease;
+  z-index: 1010;
+}
+
 .outer-container {
   width: 100%;
   height: 100%;
@@ -34,9 +47,9 @@
 .overlay {
   position: fixed;
   width: 180px;
-  height: 70%;
-  right: -15%;
-  top: 50%;
+  height: 550px;
+  right: -300px;
+  top: 400px;
   transform: translate(0, -50%);
   background-color: rgb(66, 66, 66);
   border-radius: 25px 0 0 25px;
@@ -68,8 +81,8 @@
 .scroller-container {
   position: fixed;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 1920px;
+  height: 1080px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
