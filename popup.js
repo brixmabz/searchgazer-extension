@@ -17,4 +17,10 @@ window.addEventListener("DOMContentLoaded", () => {
         }
       );
     });
+  document
+    .getElementById("clear-btn")
+    .addEventListener("click", function () {
+      webgazer.clearData();
+      chrome.storage.local.set({ webgazer_data: []});
+    });
 });

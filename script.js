@@ -38,7 +38,7 @@ webgazer
       if (xTotal >= window.innerWidth * 0.85) {
         $(".overlay").css("right", "0");
       } else {
-        $(".overlay").css("right", "-300px;");
+        $(".overlay").css("right", "-15%");
       }
 
       if (xTotal && yTotal) {
@@ -68,7 +68,7 @@ webgazer
     }
   })
   .showPredictionPoints(false)
-  .setRegression("ridge")
+  .setRegression("weightedRidge")
   .begin();
 
 // chrome.storage.local.set({ key: value }, function () {
@@ -135,7 +135,7 @@ function scrollerFunction(currentElement) {
 }
 
 async function gazeClick(x, y) {
-  if(!(document.URL.indexOf("file:///C:/Users/chuck/Desktop/tictactoe/improvements/tictactoe.html") >= 0)) {
+  if(!(document.URL.indexOf("tictactoe.com.trigl-demo.com") >= 0)) {
     return;
   }
   if (xClick.length===3){
@@ -164,22 +164,22 @@ async function gazeClick(x, y) {
   let yMaxRange = yAverage + 100;
 
   if((x >= xMinRange && x <= xMaxRange) && (y >= yMinRange && y <= yMaxRange)){
-    scale = scale + 1;
-    console.log(scale);
+    // scale = scale + 1;
     // zoom(scale, x, y);
-    //if(scale >= 3) {
-    await document.elementFromPoint(x, y).click();
-    //  scale=1;
-    //  zoom(1, 0, 0);
-    //}
+    
+    // if(scale >= 3) {
+      await document.elementFromPoint(x, y).click();
+    //   scale=1;
+    //   zoom(1, 0, 0);
+    // }
     await createClickCircle(x,y)
     //console.log("click");
     xClick.splice(0, xClick.length);
     yClick.splice(0, yClick.length);
   }
   else {
-    scale = 1;
-    zoom(1, 0, 0);
+    // scale = 1;
+    // zoom(1, 0, 0);
   }
 }
 
