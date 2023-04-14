@@ -5,6 +5,8 @@ let scrollGazeCounter = 0;
 let clickGazeCounter = 0;
 let scrollerEnabled = false;
 let clickerEnabled = false;
+let elementToBeClicked = null
+let elementLookedAtTimes = 0
 
 createCircle();
 
@@ -39,7 +41,7 @@ webgazer
 
         if (currentElement) {
           scrollerFunction(currentElement);
-          // clickerFunction(currentElement);
+          clickerFunction(currentElement);
         }
 
         if (scrollerEnabled) {
@@ -47,6 +49,19 @@ webgazer
             window.scrollBy(0, 50);
           } else if (yTotal <= window.innerHeight * 0.15) {
             window.scrollBy(0, -50);
+          }
+        }
+
+        if (clickerEnabled) {
+          if (currentElement && elementToBeClicked !== currentElement) {
+            elementToBeClicked = currentElement
+          } else if (currentElement === elementToBeClicked) {
+            elementLookedAtTimes += 1
+          }
+
+          if (elementLookedAtTimes === 6) {
+            elementToBeClicked.click()
+            clickerEnabled = !clickerEnabled;
           }
         }
       }
@@ -73,7 +88,8 @@ webgazer
 // });
 
 window.onbeforeunload = function () {
-  webgazer.saveCurrentCalibrationData();
+  // webgazer.saveCurrentCalibrationData();
+  // webgazer.clearDataFromAllStorage();
 };
 
 function createCircle() {
@@ -139,7 +155,6 @@ function clickerFunction(currentElement) {
       clickerEnabled = !clickerEnabled;
       if (clickerEnabled) {
         $("button#clicker").css("background-color", "green");
-        alert("CLICKER IS ON!");
       } else {
         $("button#clicker").css("background-color", "transparent");
       }
