@@ -7,8 +7,8 @@
       "matches": [
         "*://*.google.com/*",
         "*://*.bing.com/*",
-        "*://*.github.com/*",
-        "https://webgazer-calibration-thesis.herokuapp.com/calibration.html"
+        "https://webgazer-calibration-thesis.herokuapp.com/calibration.html",
+        "https://tictactoe.com.trigl-demo.com/"
       ],
       "js": [
         "jquery.js",
