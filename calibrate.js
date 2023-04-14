@@ -1,6 +1,7 @@
+let click_required = 20;
+
 function showCalibration() {
   alert("Please click all the red circles until they turn green.");
-  let click_required = 20;
   let outer_div = document.createElement("div");
   outer_div.className = "outer-container";
 
