@@ -52,7 +52,7 @@ webgazer
           }
         }
 
-        if (clickerEnabled) {
+        if (clickerEnabled && false) {
           if (currentElement && elementToBeClicked !== currentElement) {
             elementToBeClicked = currentElement
           } else if (currentElement === elementToBeClicked) {
@@ -62,6 +62,7 @@ webgazer
           if (elementLookedAtTimes === 6) {
             elementToBeClicked.click()
             clickerEnabled = !clickerEnabled;
+            console.log("I CLICKED")
           }
         }
       }
@@ -89,8 +90,11 @@ webgazer
 
 window.onbeforeunload = function () {
   // webgazer.saveCurrentCalibrationData();
-  // webgazer.clearDataFromAllStorage();
 };
+
+window.onload = function () {
+  // webgazer.clearDataFromAllStorage();
+}
 
 function createCircle() {
   let circle = document.createElement("div");
