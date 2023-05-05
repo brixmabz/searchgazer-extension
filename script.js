@@ -189,11 +189,13 @@ async function gazeClick(x, y) {
     
     // if(scale >= 3) {
     webgazer.pause();
-    await document.elementFromPoint(x, y).click();
+    if(!((x<0 || x>window.innerWidth) || (y<0 || y>window.innerHeight))) {
+      await document.elementFromPoint(x, y).click();
+      await createClickCircle(x,y);
+    }
     //   scale=1;
     //   zoom(1, 0, 0);
     // }
-    await createClickCircle(x,y)
     //console.log("click");
     xClick.splice(0, xClick.length);
     yClick.splice(0, yClick.length);
@@ -205,6 +207,7 @@ async function gazeClick(x, y) {
     yRelative.push(midY);
     moveCircle(midX, midY);
     webgazer.resume();
+    
   }
   else {
     // scale = 1;
