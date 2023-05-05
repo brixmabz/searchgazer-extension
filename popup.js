@@ -17,10 +17,21 @@ window.addEventListener("DOMContentLoaded", () => {
         }
       );
     });
-  document
+    document
     .getElementById("clear-btn")
     .addEventListener("click", function () {
-      webgazer.clearData();
-      chrome.storage.local.set({ webgazer_data: []});
+      chrome.tabs.query(
+        {
+          active: true,
+          currentWindow: true,
+        },
+        (tabs) => {
+          chrome.tabs.sendMessage(tabs[0].id, {
+            from: "popup",
+            subject: "clearData",
+          });
+        }
+      );
     });
 });
+

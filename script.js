@@ -11,13 +11,13 @@ let scale = 1;
 let xRelative = [];
 let yRelative = [];
 
+
 createCircle();
 
 webgazer
+  
   .setGazeListener((data, timestamp) => {
     if (data === null) return;
-
-    // console.log(currentElement);
 
     if (pastSecond !== parseInt(timestamp / 750)) {
       pastSecond = parseInt(timestamp / 750);
@@ -30,11 +30,6 @@ webgazer
       xTotal /= pointsData.length;
       yTotal /= pointsData.length;
       pointsData = [];
-      xTotal = moveXRelative(xTotal);
-      yTotal = moveYRelative(yTotal);
-      moveCircle(xTotal, yTotal);
-      gazeClick(xTotal, yTotal);
-
       if (xTotal >= window.innerWidth * 0.85) {
         $(".overlay").css("right", "0");
       } else {
@@ -43,6 +38,11 @@ webgazer
 
       if (xTotal && yTotal) {
         let currentElement = document.elementFromPoint(xTotal, yTotal);
+        xTotal = moveXRelative(xTotal);
+        yTotal = moveYRelative(yTotal);
+        moveCircle(xTotal, yTotal);
+        gazeClick(xTotal, yTotal);
+        
 
         if (currentElement) {
           scrollerFunction(currentElement);
@@ -80,7 +80,8 @@ webgazer
 // });
 
 window.onbeforeunload = function () {
-  webgazer.saveCurrentCalibrationData();
+  // webgazer.saveCurrentCalibrationData();
+  // webgazer.clearDataFromAllStorage();
 };
 
 function createCircle() {
@@ -134,21 +135,40 @@ function scrollerFunction(currentElement) {
   }
 }
 
+
+
+function enableScroll() {
+  scrollerEnabled = !scrollerEnabled;
+  if(scrollerEnabled) {
+    $("button#scroller").css("background-color", "green");
+    scrollerFunc(scrollerEnabled);
+  } else {
+    $("button#scroller").css("background-color", "transparent");
+    $(".scroller-container").remove();
+  }
+}
+
 async function gazeClick(x, y) {
-  if(!(document.URL.indexOf("tictactoe.com.trigl-demo.com") >= 0)) {
+  if(!(document.URL.indexOf("tictactoe.com.trigl-demo.com") >= 0) &&
+  !(document.URL.indexOf("eye-tracking-food-menu.com.trigl-demo.com") >= 0) &&
+  !(document.URL.indexOf("eye-tracking-look-to-speak-web.com.trigl-demo.com") >= 0)
+  ) {
     return;
   }
-  if (xClick.length===3){
+  if (scrollerEnabled) {
+    return;
+  }
+  if (xClick.length===4){
     xClick.shift();
   }
   xClick.push(x);
 
-  if (yClick.length===3){
+  if (yClick.length===4){
     yClick.shift();
   }
   yClick.push(y);
 
-  if (xClick.length !== 3 || yClick.length !== 3){
+  if (xClick.length !== 4 || yClick.length !== 4){
     return;
   }
 
@@ -157,18 +177,19 @@ async function gazeClick(x, y) {
   let ySum = yClick.reduce((a, b) => a + b, 0);
   yAverage = (ySum / yClick.length) || 0;
 
-  let xMinRange = xAverage - 100;
-  let xMaxRange = xAverage + 100;
+  let xMinRange = xAverage - 75;
+  let xMaxRange = xAverage + 75;
 
-  let yMinRange = yAverage - 100;
-  let yMaxRange = yAverage + 100;
+  let yMinRange = yAverage - 75;
+  let yMaxRange = yAverage + 75;
 
   if((x >= xMinRange && x <= xMaxRange) && (y >= yMinRange && y <= yMaxRange)){
     // scale = scale + 1;
     // zoom(scale, x, y);
     
     // if(scale >= 3) {
-      await document.elementFromPoint(x, y).click();
+    webgazer.pause();
+    await document.elementFromPoint(x, y).click();
     //   scale=1;
     //   zoom(1, 0, 0);
     // }
@@ -176,6 +197,14 @@ async function gazeClick(x, y) {
     //console.log("click");
     xClick.splice(0, xClick.length);
     yClick.splice(0, yClick.length);
+    let midX = window.innerWidth/2 
+    let midY = window.innerHeight/2
+    xRelative.shift();
+    yRelative.shift();
+    xRelative.push(midX);
+    yRelative.push(midY);
+    moveCircle(midX, midY);
+    webgazer.resume();
   }
   else {
     // scale = 1;
@@ -228,6 +257,12 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   if (msg.from === "popup" && msg.subject == "calibrate") {
     showCalibration();
   }
+  else if (msg.from === "popup" && msg.subject == "clearData") {
+    webgazer.clearDataFromAllStorage();
+  }
 });
 
 overlay();
+//let scroller = document.getElementById("scroller");
+//console.log(scroller);
+//scroller.addEventListener("click", enableScroll);
