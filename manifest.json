@@ -8,7 +8,9 @@
         "*://*.google.com/*",
         "*://*.bing.com/*",
         "https://webgazer-calibration-thesis.herokuapp.com/calibration.html",
-        "https://tictactoe.com.trigl-demo.com/"
+        "*://tictactoe.com.trigl-demo.com/*",
+        "*://eye-tracking-look-to-speak-web.com.trigl-demo.com/*",
+        "*://eye-tracking-food-menu.com.trigl-demo.com/*"
       ],
       "js": [
         "jquery.js",

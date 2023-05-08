@@ -52,17 +52,18 @@ webgazer
           }
         }
 
-        if (clickerEnabled && false) {
+        if (clickerEnabled) {
           if (currentElement && elementToBeClicked !== currentElement) {
             elementToBeClicked = currentElement
           } else if (currentElement === elementToBeClicked) {
             elementLookedAtTimes += 1
           }
 
-          if (elementLookedAtTimes === 6) {
+          if (elementLookedAtTimes === 10) {
+            webgazer.pause()
             elementToBeClicked.click()
-            clickerEnabled = !clickerEnabled;
-            console.log("I CLICKED")
+            elementLookedAtTimes = 0;
+            webgazer.resume()
           }
         }
       }
