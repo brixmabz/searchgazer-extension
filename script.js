@@ -80,7 +80,7 @@ webgazer
 // });
 
 window.onbeforeunload = function () {
-  // webgazer.saveCurrentCalibrationData();
+  webgazer.saveCurrentCalibrationData();
   // webgazer.clearDataFromAllStorage();
 };
 
