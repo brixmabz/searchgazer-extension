@@ -240,6 +240,11 @@ function moveYRelative (y) {
 }
 
 async function createClickCircle(x, y) {
+  allClickCircles = document.getElementsByClassName("click-circle");
+  if(allClickCircles.length) {
+    await document.body.removeChild(allClickCircles[0])
+  }
+  
   let clickCircle = document.createElement("div");
   clickCircle.className = "click-circle";
   let xPos = parseInt(x);
