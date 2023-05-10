@@ -15,7 +15,6 @@ let yRelative = [];
 createCircle();
 
 webgazer
-  
   .setGazeListener((data, timestamp) => {
     if (data === null) return;
 
@@ -80,8 +79,7 @@ webgazer
 // });
 
 window.onbeforeunload = function () {
-  // webgazer.saveCurrentCalibrationData();
-  // webgazer.clearDataFromAllStorage();
+  webgazer.saveCurrentCalibrationData();
 };
 
 function createCircle() {
