@@ -199,13 +199,6 @@ async function gazeClick(x, y) {
     //console.log("click");
     xClick.splice(0, xClick.length);
     yClick.splice(0, yClick.length);
-    let midX = window.innerWidth/2 
-    let midY = window.innerHeight/2
-    xRelative.shift();
-    yRelative.shift();
-    xRelative.push(midX);
-    yRelative.push(midY);
-    moveCircle(midX, midY);
     webgazer.resume();
     
   }
