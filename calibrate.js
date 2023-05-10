@@ -65,5 +65,7 @@ function isCalibrationDone() {
 
   if (done) {
     $(".outer-container").remove();
+    webgazer.pause();
+    webgazer.saveCurrentCalibrationData();
   }
 }
