@@ -68,7 +68,7 @@ webgazer
       });
     }
   })
-  // .showPredictionPoints(false)
+  .showPredictionPoints(false)
   .setRegression("weightedRidge")
   .begin();
 
