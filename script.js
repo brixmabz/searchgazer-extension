@@ -31,7 +31,7 @@ webgazer
       xTotal /= pointsData.length;
       yTotal /= pointsData.length;
       pointsData = [];
-      if (xTotal >= window.innerWidth * 0.85) {
+      if ((xTotal >= window.innerWidth * 0.85) && withOverlaySites()) {
         $(".overlay").css("right", "0");
       } else {
         $(".overlay").css("right", "-15%");
@@ -271,6 +271,15 @@ function trackerViewportLimiter(prediction){
   }
   return prediction;
 };
+
+function withOverlaySites() {
+  if (document.URL.indexOf("tictactoe.com.trigl-demo.com") >= 0 ||
+      document.URL.indexOf("eye-tracking-look-to-speak-web.com.trigl-demo.com") >= 0
+  ) {
+    return false;
+  }
+  return true;
+}
     
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
   if (msg.from === "popup" && msg.subject == "calibrate") {
