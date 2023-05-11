@@ -18,6 +18,8 @@ webgazer
   .setGazeListener((data, timestamp) => {
     if (data === null) return;
 
+    webgazer.util.bound(data)
+
     if (pastSecond !== parseInt(timestamp / 750)) {
       pastSecond = parseInt(timestamp / 750);
       let xTotal = 0;
