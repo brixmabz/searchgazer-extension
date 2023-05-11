@@ -18,7 +18,7 @@ webgazer
   .setGazeListener((data, timestamp) => {
     if (data === null) return;
 
-    webgazer.util.bound(data)
+    data = trackerViewportLimiter(data)
 
     if (pastSecond !== parseInt(timestamp / 750)) {
       pastSecond = parseInt(timestamp / 750);
@@ -68,7 +68,7 @@ webgazer
       });
     }
   })
-  .showPredictionPoints(false)
+  // .showPredictionPoints(false)
   .setRegression("weightedRidge")
   .begin();
 
@@ -253,6 +253,24 @@ function zoom(scale, x, y) {
   body.style.transformOrigin = transformOrigin;
   body.style.transform = "scale(" + scale + ")";
 }
+
+function trackerViewportLimiter(prediction){
+  if(prediction.x < 20)
+      prediction.x = 20;
+  if(prediction.y < 20)
+      prediction.y = 20;
+  var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+  var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+  if(prediction.x > w - 20){
+      prediction.x = w - 20;
+  }
+
+  if(prediction.y > h - 20)
+  {
+      prediction.y = h - 20;
+  }
+  return prediction;
+};
     
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
   if (msg.from === "popup" && msg.subject == "calibrate") {
