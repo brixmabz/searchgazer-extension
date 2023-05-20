@@ -10,6 +10,7 @@ let yAverage = 0;
 let scale = 1;
 let xRelative = [];
 let yRelative = [];
+let totalSessionClicks = 0;
 
 
 createCircle();
@@ -43,7 +44,6 @@ webgazer
         yTotal = moveYRelative(yTotal);
         moveCircle(xTotal, yTotal);
         gazeClick(xTotal, yTotal);
-        
 
         if (currentElement) {
           scrollerFunction(currentElement);
@@ -186,10 +186,11 @@ async function gazeClick(x, y) {
   if((x >= xMinRange && x <= xMaxRange) && (y >= yMinRange && y <= yMaxRange)){
     // scale = scale + 1;
     // zoom(scale, x, y);
-    
+
     // if(scale >= 3) {
     webgazer.pause();
     if(!((x<0 || x>window.innerWidth) || (y<0 || y>window.innerHeight))) {
+      totalSessionClicks += 1;
       await document.elementFromPoint(x, y).click();
       await createClickCircle(x,y);
     }
@@ -200,7 +201,7 @@ async function gazeClick(x, y) {
     xClick.splice(0, xClick.length);
     yClick.splice(0, yClick.length);
     webgazer.resume();
-    
+
   }
   else {
     // scale = 1;
@@ -217,7 +218,7 @@ function moveXRelative (x) {
   if (x <= xRelativeMin) { x=xRelativeMin }
   if (x >= xRelativeMax) { x=xRelativeMax }
   xRelative.push(x);
-  return x; 
+  return x;
 }
 
 function moveYRelative (y) {
@@ -229,7 +230,7 @@ function moveYRelative (y) {
   if (y <= yRelativeMin) { y=yRelativeMin }
   if (y >= yRelativeMax) { y=yRelativeMax }
   yRelative.push(y);
-  return y; 
+  return y;
 }
 
 async function createClickCircle(x, y) {
@@ -237,7 +238,7 @@ async function createClickCircle(x, y) {
   if(allClickCircles.length) {
     await document.body.removeChild(allClickCircles[0])
   }
-  
+
   let clickCircle = document.createElement("div");
   clickCircle.className = "click-circle";
   let xPos = parseInt(x);
@@ -280,13 +281,20 @@ function withOverlaySites() {
   }
   return true;
 }
-    
+
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
   if (msg.from === "popup" && msg.subject == "calibrate") {
     showCalibration();
-  }
-  else if (msg.from === "popup" && msg.subject == "clearData") {
+  } else if (msg.from === "popup" && msg.subject == "clearData") {
     webgazer.clearDataFromAllStorage();
+  } else if (msg.from === "popup" && msg.subject == "getClicksData") {
+    chrome.runtime.sendMessage({
+      data: `${totalSessionClicks} clicks`,
+      from: "tab",
+      subject: "sendClicksData"
+    }, function (res) {
+      return true;
+    })
   }
 });
 
