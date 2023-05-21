@@ -202,7 +202,6 @@ async function gazeClick(x, y) {
     if(!(( x < 0 || x > window.innerWidth ) || ( y < 0 || y > window.innerHeight ))) {
       totalSessionClicks += 1;
       await document.elementFromPoint(x, y).click();
-      await createClickCircle(x,y);
     }
     document.getElementById("gazer-circle-shadow").classList.add("gazer-circle-click")
     setTimeout(() => {
