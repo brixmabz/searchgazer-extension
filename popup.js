@@ -1,8 +1,8 @@
 chrome.runtime.onMessage.addListener(function (msg, sender, response) {
   if (msg.from === "tab" && msg.subject === "sendClicksData") {
     if (msg.data) {
-      let el = document.getElementsByClassName('page-data-container')[0]
-      el.innerHTML = `Session Click Count: ${msg.data}`
+      let el = document.querySelector('.page-data-container span')
+      el.innerHTML = msg.data
     }
   }
 });
