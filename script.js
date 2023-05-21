@@ -86,17 +86,27 @@ window.onbeforeunload = function () {
 
 function createCircle() {
   let circle = document.createElement("div");
+  let circleShadow = document.createElement("div");
   circle.id = "gazer-circle";
+  circleShadow.id = "gazer-circle-shadow";
+  circleShadow.classList.add("gazer-circle-shadow")
   document.body.appendChild(circle);
+  document.body.appendChild(circleShadow);
 }
 
 function moveCircle(x, y) {
   let xPos = parseInt(x);
   let yPos = parseInt(y);
   let circle = document.getElementById("gazer-circle");
+  let circleShadow = document.getElementById("gazer-circle-shadow");
   if (circle) {
     circle.style.top = `${yPos}px`;
     circle.style.left = `${xPos}px`;
+  }
+
+  if (circleShadow) {
+    circleShadow.style.top = `${yPos}px`;
+    circleShadow.style.left = `${xPos}px`;
   }
 }
 
@@ -189,15 +199,15 @@ async function gazeClick(x, y) {
 
     // if(scale >= 3) {
     webgazer.pause();
-    if(!((x<0 || x>window.innerWidth) || (y<0 || y>window.innerHeight))) {
+    if(!(( x < 0 || x > window.innerWidth ) || ( y < 0 || y > window.innerHeight ))) {
       totalSessionClicks += 1;
       await document.elementFromPoint(x, y).click();
       await createClickCircle(x,y);
     }
-    //   scale=1;
-    //   zoom(1, 0, 0);
-    // }
-    //console.log("click");
+    document.getElementById("gazer-circle-shadow").classList.add("gazer-circle-click")
+    setTimeout(() => {
+      document.getElementById("gazer-circle-shadow").classList.remove("gazer-circle-click")
+    }, 500)
     xClick.splice(0, xClick.length);
     yClick.splice(0, yClick.length);
     webgazer.resume();

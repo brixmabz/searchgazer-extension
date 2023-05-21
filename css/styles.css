@@ -11,6 +11,26 @@
   z-index: 1010;
 }
 
+#gazer-circle-shadow {
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 50%;
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  transform: translate(-50%, -50%);
+  z-index: 1010;
+  box-shadow: 0 0 0 0 gray;
+  opacity: 1;
+}
+
+.gazer-circle-click {
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 40px gray !important;
+  opacity: 0 !important;
+}
+
 .click-circle {
   width: 10px;
   height: 10px;
