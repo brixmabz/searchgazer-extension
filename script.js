@@ -3,6 +3,7 @@ let pastSecond = 0;
 let pointsData = [];
 let gazeCounter = 0;
 let scrollerEnabled = false;
+let bookmarkEnabled = false;
 const xClick = [];
 const yClick = [];
 let xAverage = 0;
@@ -47,6 +48,7 @@ webgazer
 
         if (currentElement) {
           scrollerFunction(currentElement);
+          bookmarkFunction(currentElement);
         }
 
         if (scrollerEnabled) {
@@ -145,7 +147,31 @@ function scrollerFunction(currentElement) {
   }
 }
 
-
+function bookmarkFunction(currentElement) {
+  if (currentElement.id == "bookmark") {
+    if (!bookmarkEnabled) {
+      $("button#bookmark").css("background-color", "green");
+    } else {
+      $("button#bookmark").css("background-color", "red");
+    }
+    gazeCounter += 1;
+    if (gazeCounter === 3) {
+      bookmarkEnabled = !bookmarkEnabled;
+      if (bookmarkEnabled) {
+        $("button#bookmark").css("background-color", "green");
+      } else {
+        $("button#bookmark").css("background-color", "transparent");
+      }
+    }
+  } else {
+    gazeCounter = 0;
+    if (!bookmarkEnabled) {
+      $("button#bookmark").css("background-color", "transparent");
+    } else {
+      $("button#bookmark").css("background-color", "green");
+    }
+  }
+}
 
 function enableScroll() {
   scrollerEnabled = !scrollerEnabled;
