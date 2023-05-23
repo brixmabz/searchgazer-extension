@@ -187,7 +187,8 @@ function enableScroll() {
 async function gazeClick(x, y) {
   if(!(document.URL.indexOf("tictactoe.com.trigl-demo.com") >= 0) &&
   !(document.URL.indexOf("eye-tracking-food-menu.com.trigl-demo.com") >= 0) &&
-  !(document.URL.indexOf("eye-tracking-look-to-speak-web.com.trigl-demo.com") >= 0)
+  !(document.URL.indexOf("eye-tracking-look-to-speak-web.com.trigl-demo.com") >= 0) &&
+  !(document.URL.indexOf("eye-tracking-youtube.com.trigl-demo.com") >= 0)
   ) {
     return;
   }
