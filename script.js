@@ -2,6 +2,7 @@ window.saveDataAcrossSessions = true;
 let pastSecond = 0;
 let pointsData = [];
 let gazeCounter = 0;
+let bookmarkGazeCounter = 0;
 let scrollerEnabled = false;
 let bookmarkEnabled = false;
 const xClick = [];
@@ -154,17 +155,20 @@ function bookmarkFunction(currentElement) {
     } else {
       $("button#bookmark").css("background-color", "red");
     }
-    gazeCounter += 1;
-    if (gazeCounter === 3) {
+    bookmarkGazeCounter += 1;
+    if (bookmarkGazeCounter === 3) {
       bookmarkEnabled = !bookmarkEnabled;
       if (bookmarkEnabled) {
         $("button#bookmark").css("background-color", "green");
+        bookmarkFunc()
       } else {
         $("button#bookmark").css("background-color", "transparent");
+        document.body.removeChild(document.querySelector(".outer-container-2"))
+        $(".bookmark-item").off()
       }
     }
   } else {
-    gazeCounter = 0;
+    bookmarkGazeCounter = 0;
     if (!bookmarkEnabled) {
       $("button#bookmark").css("background-color", "transparent");
     } else {
