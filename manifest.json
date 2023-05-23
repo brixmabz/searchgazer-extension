@@ -13,7 +13,8 @@
         "http://localhost:8080/*",
         "http://localhost:8000/*",
         "*://eye-tracking-look-to-speak-web.com.trigl-demo.com/*",
-        "*://eye-tracking-food-menu.com.trigl-demo.com/*"
+        "*://eye-tracking-food-menu.com.trigl-demo.com/*",
+        "*://eye-tracking-youtube.com.trigl-demo.com/*"
       ],
       "js": [
         "jquery.js",
