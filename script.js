@@ -34,16 +34,16 @@ webgazer
       xTotal /= pointsData.length;
       yTotal /= pointsData.length;
       pointsData = [];
-      if ((xTotal >= window.innerWidth * 0.85) && withOverlaySites()) {
-        $(".overlay").css("right", "0");
-      } else {
-        $(".overlay").css("right", "-15%");
-      }
 
       if (xTotal && yTotal) {
         let currentElement = document.elementFromPoint(xTotal, yTotal);
         xTotal = moveXRelative(xTotal);
         yTotal = moveYRelative(yTotal);
+        if ((xTotal >= window.innerWidth * 0.85) && withOverlaySites()) {
+          $(".overlay").css("right", "0");
+        } else {
+          $(".overlay").css("right", "-15%");
+        }
         moveCircle(xTotal, yTotal);
         gazeClick(xTotal, yTotal);
 
@@ -82,6 +82,13 @@ webgazer
 // chrome.storage.local.get(["test_var", "webgazer_data"], function (result) {
 //   console.log(JSON.parse(result.test_var));
 // });
+
+// let hoverEvent = new Event("mouseover");
+// currentElement.dispatchEvent(hoverEvent)
+// $(currentElement).trigger("mouseenter")
+// setInterval(() => {
+//   document.getElementById('burger-steak-solo1').dispatchEvent(new MouseEvent('mouseover', { 'bubbles': true }));
+// }, 1000)
 
 window.onbeforeunload = function () {
   webgazer.saveCurrentCalibrationData();
