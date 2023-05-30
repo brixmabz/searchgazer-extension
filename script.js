@@ -23,8 +23,8 @@ webgazer
 
     data = trackerViewportLimiter(data)
 
-    if (pastSecond !== parseInt(timestamp / 750)) {
-      pastSecond = parseInt(timestamp / 750);
+    if (pastSecond !== parseInt(timestamp / 600)) {
+      pastSecond = parseInt(timestamp / 600);
       let xTotal = 0;
       let yTotal = 0;
       pointsData.forEach((loopData, index) => {
@@ -225,11 +225,11 @@ async function gazeClick(x, y) {
   let ySum = yClick.reduce((a, b) => a + b, 0);
   yAverage = (ySum / yClick.length) || 0;
 
-  let xMinRange = xAverage - 75;
-  let xMaxRange = xAverage + 75;
+  let xMinRange = xAverage - 50;
+  let xMaxRange = xAverage + 50;
 
-  let yMinRange = yAverage - 75;
-  let yMaxRange = yAverage + 75;
+  let yMinRange = yAverage - 50;
+  let yMaxRange = yAverage + 50;
 
   if((x >= xMinRange && x <= xMaxRange) && (y >= yMinRange && y <= yMaxRange)){
     // scale = scale + 1;
@@ -260,8 +260,8 @@ function moveXRelative (x) {
   if(xRelative.length == 2) {
     xRelative.shift();
   }
-  let xRelativeMin = xRelative[0] - 200;
-  let xRelativeMax = xRelative[0] + 200;
+  let xRelativeMin = xRelative[0] - 640;
+  let xRelativeMax = xRelative[0] + 640;
   if (x <= xRelativeMin) { x=xRelativeMin }
   if (x >= xRelativeMax) { x=xRelativeMax }
   xRelative.push(x);
@@ -272,8 +272,8 @@ function moveYRelative (y) {
   if(yRelative.length == 2) {
     yRelative.shift();
   }
-  let yRelativeMin = yRelative[0] - 200;
-  let yRelativeMax = yRelative[0] + 200;
+  let yRelativeMin = yRelative[0] - 360;
+  let yRelativeMax = yRelative[0] + 360;
   if (y <= yRelativeMin) { y=yRelativeMin }
   if (y >= yRelativeMax) { y=yRelativeMax }
   yRelative.push(y);
