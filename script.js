@@ -5,6 +5,7 @@ let gazeCounter = 0;
 let bookmarkGazeCounter = 0;
 let scrollerEnabled = false;
 let bookmarkEnabled = false;
+let clickEnabled = false;
 const xClick = [];
 const yClick = [];
 let xAverage = 0;
@@ -14,7 +15,6 @@ let xRelative = [];
 let yRelative = [];
 
 createCircle();
-
 webgazer
   .setGazeListener((data, timestamp) => {
     if (data === null) return;
@@ -73,9 +73,19 @@ webgazer
   .setRegression("weightedRidge")
   .begin();
 
+delayClick();
+
 window.onbeforeunload = function () {
   webgazer.saveCurrentCalibrationData();
 };
+
+function delayClick() {
+  console.log("CLICK DISABLED");
+  setTimeout(function() {
+    console.log("CLICK ENABLED");
+    clickEnabled = true
+  }, 3000);
+}
 
 function createCircle() {
   let circle = document.createElement("div");
@@ -105,8 +115,12 @@ function moveCircle(x, y) {
 
 function removeCircle() {
   let circle = document.getElementById("gazer-circle");
+  let circleShadow = document.getElementById("gazer-circle-shadow");
   if (circle) {
     document.body.removeChild(circle);
+  }
+  if (circleShadow) {
+    document.body.removeChild(circleShadow);
   }
 }
 
@@ -189,6 +203,9 @@ async function gazeClick(x, y) {
   if (scrollerEnabled) {
     return;
   }
+  if (!clickEnabled) {
+    return;
+  }
   if (xClick.length===4){
     xClick.shift();
   }
@@ -224,14 +241,16 @@ async function gazeClick(x, y) {
       setClicksCount();
       await document.elementFromPoint(x, y).click();
     }
-    document.getElementById("gazer-circle-shadow").classList.add("gazer-circle-click")
-    setTimeout(() => {
-      document.getElementById("gazer-circle-shadow").classList.remove("gazer-circle-click")
-    }, 500)
+    let setCircleShadow = document.getElementById("gazer-circle-shadow");
+    if(setCircleShadow) {
+      setCircleShadow.classList.add("gazer-circle-click");
+      setTimeout(() => {
+        setCircleShadow.classList.remove("gazer-circle-click");
+      }, 500)
+    }
     xClick.splice(0, xClick.length);
     yClick.splice(0, yClick.length);
     webgazer.resume();
-
   }
   else {
     // scale = 1;
@@ -286,19 +305,19 @@ function zoom(scale, x, y) {
 }
 
 function trackerViewportLimiter(prediction){
-  if(prediction.x < 20)
-      prediction.x = 20;
-  if(prediction.y < 20)
-      prediction.y = 20;
+  if(prediction.x < 12)
+      prediction.x = 12;
+  if(prediction.y < 12)
+      prediction.y = 12;
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-  if(prediction.x > w - 20){
-      prediction.x = w - 20;
+  if(prediction.x > w - 12){
+      prediction.x = w - 12;
   }
 
-  if(prediction.y > h - 20)
+  if(prediction.y > h - 12)
   {
-      prediction.y = h - 20;
+      prediction.y = h - 12;
   }
   return prediction;
 };
