@@ -225,11 +225,11 @@ async function gazeClick(x, y) {
   let ySum = yClick.reduce((a, b) => a + b, 0);
   yAverage = (ySum / yClick.length) || 0;
 
-  let xMinRange = xAverage - 50;
-  let xMaxRange = xAverage + 50;
+  let xMinRange = xAverage - 63;
+  let xMaxRange = xAverage + 63;
 
-  let yMinRange = yAverage - 50;
-  let yMaxRange = yAverage + 50;
+  let yMinRange = yAverage - 63;
+  let yMaxRange = yAverage + 63;
 
   if((x >= xMinRange && x <= xMaxRange) && (y >= yMinRange && y <= yMaxRange)){
     // scale = scale + 1;
