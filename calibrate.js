@@ -3,6 +3,7 @@ function showCalibration() {
   let click_required = 20;
   let outer_div = document.createElement("div");
   outer_div.className = "outer-container";
+  removeCircle();
 
   let coordinates = [
     ["5%", "5%"],
@@ -66,6 +67,7 @@ function isCalibrationDone() {
   if (done) {
     $(".outer-container").remove();
     webgazer.pause();
+    createCircle();
     webgazer.saveCurrentCalibrationData();
   }
 }

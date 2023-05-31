@@ -122,8 +122,12 @@ function moveCircle(x, y) {
 
 function removeCircle() {
   let circle = document.getElementById("gazer-circle");
+  let circleShadow = document.getElementById("gazer-circle-shadow");
   if (circle) {
     document.body.removeChild(circle);
+  }
+  if (circleShadow) {
+    document.body.removeChild(circleShadow);
   }
 }
 
@@ -303,19 +307,19 @@ function zoom(scale, x, y) {
 }
 
 function trackerViewportLimiter(prediction){
-  if(prediction.x < 5)
-      prediction.x = 5;
-  if(prediction.y < 5)
-      prediction.y = 5;
+  if(prediction.x < 12)
+      prediction.x = 12;
+  if(prediction.y < 12)
+      prediction.y = 12;
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-  if(prediction.x > w - 5){
-      prediction.x = w - 5;
+  if(prediction.x > w - 12){
+      prediction.x = w - 12;
   }
 
-  if(prediction.y > h - 5)
+  if(prediction.y > h - 12)
   {
-      prediction.y = h - 5;
+      prediction.y = h - 12;
   }
   return prediction;
 };
