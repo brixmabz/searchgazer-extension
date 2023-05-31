@@ -1,28 +1,29 @@
-chrome.runtime.onMessage.addListener(function (msg, sender, response) {
-  if (msg.from === "tab" && msg.subject === "sendClicksData") {
-    if (msg.data) {
-      let el = document.querySelector('.page-data-container span')
-      el.innerHTML = msg.data
-    }
-  }
-});
-
-// Once the DOM is ready...
 window.addEventListener("DOMContentLoaded", () => {
-  console.log(new Date())
+  let origin = "";
+
   chrome.tabs.query(
     {
       active: true,
       currentWindow: true,
     },
     (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, {
-        from: "popup",
-        subject: "getClicksData",
-      });
+      origin = (new URL(tabs[0].url)).origin;
+      chrome.storage.local.get(["clicksData"], function(result) {
+        let value = result.clicksData[origin] === undefined ? "0" : result.clicksData[origin]
+        document.querySelector('.page-data-container span').innerHTML = value + " clicks"
+      })
     }
   );
-  // ...query for the active tab...
+
+  document
+    .getElementById("reset-clicks")
+    .addEventListener("click", function () {
+      chrome.storage.local.get(["clicksData"], function(result) {
+        chrome.storage.local.set({ clicksData: { ...result.clicksData, [origin]: 0 }})
+        document.querySelector('.page-data-container span').innerHTML = "0 clicks"
+      })
+    });
+
   document
     .getElementById("calibrate-btn")
     .addEventListener("click", function () {
@@ -39,7 +40,8 @@ window.addEventListener("DOMContentLoaded", () => {
         }
       );
     });
-    document
+
+  document
     .getElementById("clear-btn")
     .addEventListener("click", function () {
       chrome.tabs.query(

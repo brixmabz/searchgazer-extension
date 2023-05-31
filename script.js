@@ -12,8 +12,6 @@ let yAverage = 0;
 let scale = 1;
 let xRelative = [];
 let yRelative = [];
-let totalSessionClicks = 0;
-
 
 createCircle();
 
@@ -74,21 +72,6 @@ webgazer
   .showPredictionPoints(false)
   .setRegression("weightedRidge")
   .begin();
-
-// chrome.storage.local.set({ key: value }, function () {
-//   console.log("Value is set to " + value);
-// });
-
-// chrome.storage.local.get(["test_var", "webgazer_data"], function (result) {
-//   console.log(JSON.parse(result.test_var));
-// });
-
-// let hoverEvent = new Event("mouseover");
-// currentElement.dispatchEvent(hoverEvent)
-// $(currentElement).trigger("mouseenter")
-// setInterval(() => {
-//   document.getElementById('burger-steak-solo1').dispatchEvent(new MouseEvent('mouseover', { 'bubbles': true }));
-// }, 1000)
 
 window.onbeforeunload = function () {
   webgazer.saveCurrentCalibrationData();
@@ -238,7 +221,7 @@ async function gazeClick(x, y) {
     // if(scale >= 3) {
     webgazer.pause();
     if(!(( x < 0 || x > window.innerWidth ) || ( y < 0 || y > window.innerHeight ))) {
-      totalSessionClicks += 1;
+      setClicksCount();
       await document.elementFromPoint(x, y).click();
     }
     document.getElementById("gazer-circle-shadow").classList.add("gazer-circle-click")
@@ -329,23 +312,4 @@ function withOverlaySites() {
   return true;
 }
 
-chrome.runtime.onMessage.addListener((msg, sender, response) => {
-  if (msg.from === "popup" && msg.subject == "calibrate") {
-    showCalibration();
-  } else if (msg.from === "popup" && msg.subject == "clearData") {
-    webgazer.clearDataFromAllStorage();
-  } else if (msg.from === "popup" && msg.subject == "getClicksData") {
-    chrome.runtime.sendMessage({
-      data: `${totalSessionClicks} clicks`,
-      from: "tab",
-      subject: "sendClicksData"
-    }, function (res) {
-      return true;
-    })
-  }
-});
-
 overlay();
-//let scroller = document.getElementById("scroller");
-//console.log(scroller);
-//scroller.addEventListener("click", enableScroll);

@@ -22,6 +22,19 @@ h2 {
   font-size: 16px;
 }
 
+#reset-clicks {
+  background-color: #787978;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+#reset-clicks:hover {
+  background-color: #606160;
+  cursor: pointer;
+}
+
 .btn-container {
   display: flex;
   justify-content: center;
