@@ -303,19 +303,19 @@ function zoom(scale, x, y) {
 }
 
 function trackerViewportLimiter(prediction){
-  if(prediction.x < 20)
-      prediction.x = 20;
-  if(prediction.y < 20)
-      prediction.y = 20;
+  if(prediction.x < 5)
+      prediction.x = 5;
+  if(prediction.y < 5)
+      prediction.y = 5;
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-  if(prediction.x > w - 20){
-      prediction.x = w - 20;
+  if(prediction.x > w - 5){
+      prediction.x = w - 5;
   }
 
-  if(prediction.y > h - 20)
+  if(prediction.y > h - 5)
   {
-      prediction.y = h - 20;
+      prediction.y = h - 5;
   }
   return prediction;
 };
