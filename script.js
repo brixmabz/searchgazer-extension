@@ -206,17 +206,17 @@ async function gazeClick(x, y) {
   if (!clickEnabled) {
     return;
   }
-  if (xClick.length===4){
+  if (xClick.length===7){
     xClick.shift();
   }
   xClick.push(x);
 
-  if (yClick.length===4){
+  if (yClick.length===7){
     yClick.shift();
   }
   yClick.push(y);
 
-  if (xClick.length !== 4 || yClick.length !== 4){
+  if (xClick.length !== 7 || yClick.length !== 7){
     return;
   }
 
