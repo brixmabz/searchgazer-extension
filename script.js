@@ -5,6 +5,7 @@ let gazeCounter = 0;
 let bookmarkGazeCounter = 0;
 let scrollerEnabled = false;
 let bookmarkEnabled = false;
+let clickEnabled = false;
 const xClick = [];
 const yClick = [];
 let xAverage = 0;
@@ -14,9 +15,7 @@ let xRelative = [];
 let yRelative = [];
 let totalSessionClicks = 0;
 
-
 createCircle();
-
 webgazer
   .setGazeListener((data, timestamp) => {
     if (data === null) return;
@@ -75,6 +74,8 @@ webgazer
   .setRegression("weightedRidge")
   .begin();
 
+delayClick();
+
 // chrome.storage.local.set({ key: value }, function () {
 //   console.log("Value is set to " + value);
 // });
@@ -93,6 +94,14 @@ webgazer
 window.onbeforeunload = function () {
   webgazer.saveCurrentCalibrationData();
 };
+
+function delayClick() {
+  console.log("CLICK DISABLED");
+  setTimeout(function() {
+    console.log("CLICK ENABLED");
+    clickEnabled = true
+  }, 3000);
+}
 
 function createCircle() {
   let circle = document.createElement("div");
@@ -210,6 +219,9 @@ async function gazeClick(x, y) {
   if (scrollerEnabled) {
     return;
   }
+  if (!clickEnabled) {
+    return;
+  }
   if (xClick.length===4){
     xClick.shift();
   }
@@ -245,14 +257,16 @@ async function gazeClick(x, y) {
       totalSessionClicks += 1;
       await document.elementFromPoint(x, y).click();
     }
-    document.getElementById("gazer-circle-shadow").classList.add("gazer-circle-click")
-    setTimeout(() => {
-      document.getElementById("gazer-circle-shadow").classList.remove("gazer-circle-click")
-    }, 500)
+    let setCircleShadow = document.getElementById("gazer-circle-shadow");
+    if(setCircleShadow) {
+      setCircleShadow.classList.add("gazer-circle-click");
+      setTimeout(() => {
+        setCircleShadow.classList.remove("gazer-circle-click");
+      }, 500)
+    }
     xClick.splice(0, xClick.length);
     yClick.splice(0, yClick.length);
     webgazer.resume();
-
   }
   else {
     // scale = 1;

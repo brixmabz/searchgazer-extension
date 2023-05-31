@@ -3,6 +3,7 @@ function showCalibration() {
   let click_required = 20;
   let outer_div = document.createElement("div");
   outer_div.className = "outer-container";
+  clickEnabled = false;
   removeCircle();
 
   let coordinates = [
@@ -65,9 +66,12 @@ function isCalibrationDone() {
   });
 
   if (done) {
-    $(".outer-container").remove();
     webgazer.pause();
-    createCircle();
     webgazer.saveCurrentCalibrationData();
+    setTimeout(function(){
+      $(".outer-container").remove();
+      createCircle();
+      delayClick();
+    }, 3000); 
   }
 }
