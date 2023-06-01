@@ -3,6 +3,7 @@ let pastSecond = 0;
 let pointsData = [];
 let gazeCounter = 0;
 let bookmarkGazeCounter = 0;
+let clickGazeCounter = 0;
 let scrollerEnabled = false;
 let bookmarkEnabled = false;
 let clickEnabled = false;
@@ -46,6 +47,7 @@ webgazer
         gazeClick(xTotal, yTotal);
 
         if (currentElement) {
+          clickerFunction(currentElement);
           scrollerFunction(currentElement);
           bookmarkFunction(currentElement);
         }
@@ -121,6 +123,32 @@ function removeCircle() {
   }
   if (circleShadow) {
     document.body.removeChild(circleShadow);
+  }
+}
+
+function clickerFunction(currentElement) {
+  if (currentElement.id == "clicker") {
+    if (!clickEnabled) {
+      $("button#clicker").css("background-color", "green");
+    } else {
+      $("button#clicker").css("background-color", "red");
+    }
+    clickGazeCounter += 1;
+    if (clickGazeCounter === 3) {
+      clickEnabled = !clickEnabled;
+      if (clickEnabled) {
+        $("button#clicker").css("background-color", "green");
+      } else {
+        $("button#clicker").css("background-color", "transparent");
+      }
+    }
+  } else {
+    clickGazeCounter = 0;
+    if (!clickEnabled) {
+      $("button#clicker").css("background-color", "transparent");
+    } else {
+      $("button#clicker").css("background-color", "green");
+    }
   }
 }
 
