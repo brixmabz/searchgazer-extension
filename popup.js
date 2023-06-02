@@ -1,3 +1,10 @@
+chrome.runtime.onMessage.addListener(function (msg, sender, response) {
+  if (msg.from === "tab" && msg.subject === "overlayEnabledData") {
+    document.getElementById("overlay-enabler-btn").innerText = `Overlay: ${msg.data ? "ON" : "OFF"}`;
+    document.getElementById("overlay-enabler-btn").className = msg.data ? "overlay-enabled" : "overlay-disabled";
+  }
+});
+
 window.addEventListener("DOMContentLoaded", () => {
   let origin = "";
 
@@ -7,6 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
       currentWindow: true,
     },
     (tabs) => {
+      chrome.tabs.sendMessage(tabs[0].id, {from: "popup", subject: "overlayEnabledData"});
       origin = (new URL(tabs[0].url)).origin;
       chrome.storage.local.get(["clicksData"], function(result) {
         let value = result.clicksData[origin] === undefined ? "0" : result.clicksData[origin]
@@ -54,6 +62,32 @@ window.addEventListener("DOMContentLoaded", () => {
             from: "popup",
             subject: "clearData",
           });
+        }
+      );
+    });
+
+  document
+    .getElementById("overlay-enabler-btn")
+    .addEventListener("click", function () {
+      chrome.tabs.query(
+        {
+          active: true,
+          currentWindow: true,
+        },
+        (tabs) => {
+          chrome.tabs.sendMessage(tabs[0].id, {
+            from: "popup",
+            subject: "toggleOverlayEnabled",
+          });
+          let className = document.getElementById("overlay-enabler-btn").className
+
+          if (className === "overlay-enabled") {
+            document.getElementById("overlay-enabler-btn").className = "overlay-disabled";
+            document.getElementById("overlay-enabler-btn").innerText = "Overlay: OFF";
+          } else {
+            document.getElementById("overlay-enabler-btn").className = "overlay-enabled";
+            document.getElementById("overlay-enabler-btn").innerText = "Overlay: ON";
+          }
         }
       );
     });

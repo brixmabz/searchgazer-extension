@@ -3,6 +3,10 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
       showCalibration();
     } else if (msg.from === "popup" && msg.subject == "clearData") {
       webgazer.clearDataFromAllStorage();
+    } else if (msg.from === "popup" && msg.subject == "overlayEnabledData") {
+      chrome.runtime.sendMessage({ data: overlayEnabled, from: "tab", subject: "overlayEnabledData"})
+    } else if (msg.from === "popup" && msg.subject == "toggleOverlayEnabled") {
+      overlayEnabled = !overlayEnabled;
     }
   });
 

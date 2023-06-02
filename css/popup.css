@@ -59,3 +59,21 @@ h2 {
 #clear-btn:hover {
   background-color: #606160;
 }
+
+.overlay-enabled {
+  background-color: #0bc029;
+  color: white;
+}
+
+.overlay-enabled:hover {
+  background-color: #0bb127;
+}
+
+.overlay-disabled {
+  background-color: #787978;
+  color: white;
+}
+
+.overlay-disabled:hover {
+  background-color: #606160;
+}

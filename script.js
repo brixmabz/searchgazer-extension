@@ -7,6 +7,7 @@ let clickGazeCounter = 0;
 let scrollerEnabled = false;
 let bookmarkEnabled = false;
 let clickEnabled = false;
+let overlayEnabled = true;
 const xClick = [];
 const yClick = [];
 let xAverage = 0;
@@ -38,7 +39,7 @@ webgazer
         let currentElement = document.elementFromPoint(xTotal, yTotal);
         xTotal = moveXRelative(xTotal);
         yTotal = moveYRelative(yTotal);
-        if ((xTotal >= window.innerWidth * 0.85) && withOverlaySites()) {
+        if ((xTotal >= window.innerWidth * 0.85) && overlayEnabled) {
           $(".overlay").css("right", "0");
         } else {
           $(".overlay").css("right", "-15%");
@@ -76,6 +77,7 @@ webgazer
   .begin();
 
 delayClick();
+withOverlaySites();
 
 window.onbeforeunload = function () {
   webgazer.saveCurrentCalibrationData();
@@ -354,9 +356,8 @@ function withOverlaySites() {
   if (document.URL.indexOf("tictactoe.com.trigl-demo.com") >= 0 ||
       document.URL.indexOf("eye-tracking-look-to-speak-web.com.trigl-demo.com") >= 0
   ) {
-    return false;
+    overlayEnabled = false;
   }
-  return true;
 }
 
 overlay();
