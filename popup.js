@@ -16,9 +16,10 @@ window.addEventListener("DOMContentLoaded", () => {
     (tabs) => {
       chrome.tabs.sendMessage(tabs[0].id, {from: "popup", subject: "overlayEnabledData"});
       origin = (new URL(tabs[0].url)).origin;
-      chrome.storage.local.get(["clicksData"], function(result) {
+      chrome.storage.local.get(["clicksData", "errorData"], function(result) {
         let value = result.clicksData[origin] === undefined ? "0" : result.clicksData[origin]
         document.querySelector('.page-data-container span').innerHTML = value + " clicks"
+        document.querySelector('.error-container span').innerHTML = result.errorData ? `${result.errorData} errors` : "0 errors"
       })
     }
   );
@@ -30,6 +31,13 @@ window.addEventListener("DOMContentLoaded", () => {
         chrome.storage.local.set({ clicksData: { ...result.clicksData, [origin]: 0 }})
         document.querySelector('.page-data-container span').innerHTML = "0 clicks"
       })
+    });
+
+  document
+    .getElementById("reset-count")
+    .addEventListener("click", function () {
+      chrome.storage.local.set({ errorData: 0 })
+      document.querySelector('.error-container span').innerHTML = "0 errors"
     });
 
   document

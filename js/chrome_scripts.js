@@ -10,6 +10,19 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     }
   });
 
+// Gaze Error Counter
+$(document).on("keyup", function(e) {
+  if ((e.key === "NumpadAdd" || e.keyCode === 107) || (e.key === "Equal" || e.keyCode === 187)) {
+    chrome.storage.local.get(['errorData'], function(result) {
+      if (result.errorData === undefined) {
+        chrome.storage.local.set({ errorData: 1 })
+      } else {
+        chrome.storage.local.set({ errorData: result.errorData + 1 })
+      }
+    })
+  }
+})
+
 function setClicksCount() {
   chrome.storage.local.get(['clicksData'], function (result) {
     let origin = window.location.origin;
