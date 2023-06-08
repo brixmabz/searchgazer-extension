@@ -17,9 +17,10 @@ window.addEventListener("DOMContentLoaded", () => {
       chrome.tabs.sendMessage(tabs[0].id, {from: "popup", subject: "overlayEnabledData"});
       origin = (new URL(tabs[0].url)).origin;
       chrome.storage.local.get(["clicksData", "errorData"], function(result) {
-        let value = result.clicksData[origin] === undefined ? "0" : result.clicksData[origin]
-        document.querySelector('.page-data-container span').innerHTML = value + " clicks"
-        document.querySelector('.error-container span').innerHTML = result.errorData ? `${result.errorData} errors` : "0 errors"
+        let clicksVal = result.clicksData[origin] === undefined ? "0" : result.clicksData[origin]
+        let errorsVal = result.errorData[origin] === undefined ? "0" : result.errorData[origin]
+        document.querySelector('.page-data-container span').innerHTML = clicksVal + " clicks"
+        document.querySelector('.error-container span').innerHTML = errorsVal + " errors"
       })
     }
   );
