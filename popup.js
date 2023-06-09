@@ -2,6 +2,8 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
   if (msg.from === "tab" && msg.subject === "overlayEnabledData") {
     document.getElementById("overlay-enabler-btn").innerText = `Overlay: ${msg.data ? "ON" : "OFF"}`;
     document.getElementById("overlay-enabler-btn").className = msg.data ? "overlay-enabled" : "overlay-disabled";
+  } else if (msg.from === "tab" && msg.subject === "setSpeedValue") {
+    document.getElementById("speed-select").value = msg.data;
   }
 });
 
@@ -15,6 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
     },
     (tabs) => {
       chrome.tabs.sendMessage(tabs[0].id, {from: "popup", subject: "overlayEnabledData"});
+      chrome.tabs.sendMessage(tabs[0].id, {from: "popup", subject: "setSpeedValue"});
       origin = (new URL(tabs[0].url)).origin;
       chrome.storage.local.get(["clicksData", "errorData"], function(result) {
         let clicksVal = result.clicksData[origin] === undefined ? "0" : result.clicksData[origin]
@@ -97,6 +100,24 @@ window.addEventListener("DOMContentLoaded", () => {
             document.getElementById("overlay-enabler-btn").className = "overlay-enabled";
             document.getElementById("overlay-enabler-btn").innerText = "Overlay: ON";
           }
+        }
+      );
+    });
+
+  document
+    .getElementById("speed-select")
+    .addEventListener("change", function () {
+      chrome.tabs.query(
+        {
+          active: true,
+          currentWindow: true,
+        },
+        (tabs) => {
+          chrome.tabs.sendMessage(tabs[0].id, {
+            from: "popup",
+            subject: "speedUpdate",
+            data: this.value
+          });
         }
       );
     });

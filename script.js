@@ -15,6 +15,7 @@ let yAverage = 0;
 let scale = 1;
 let xRelative = [];
 let yRelative = [];
+let relativeSpeed = 3;
 
 createCircle();
 webgazer
@@ -292,8 +293,8 @@ function moveXRelative (x) {
   if(xRelative.length == 2) {
     xRelative.shift();
   }
-  let xRelativeMin = xRelative[0] - 640;
-  let xRelativeMax = xRelative[0] + 640;
+  let xRelativeMin = xRelative[0] - (1920 / relativeSpeed);
+  let xRelativeMax = xRelative[0] + (1920 / relativeSpeed);
   if (x <= xRelativeMin) { x=xRelativeMin }
   if (x >= xRelativeMax) { x=xRelativeMax }
   xRelative.push(x);
@@ -304,8 +305,8 @@ function moveYRelative (y) {
   if(yRelative.length == 2) {
     yRelative.shift();
   }
-  let yRelativeMin = yRelative[0] - 360;
-  let yRelativeMax = yRelative[0] + 360;
+  let yRelativeMin = yRelative[0] - (1080 / relativeSpeed);
+  let yRelativeMax = yRelative[0] + (1080 / relativeSpeed);
   if (y <= yRelativeMin) { y=yRelativeMin }
   if (y >= yRelativeMax) { y=yRelativeMax }
   yRelative.push(y);

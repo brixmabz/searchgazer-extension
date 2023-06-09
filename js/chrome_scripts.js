@@ -7,6 +7,10 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
       chrome.runtime.sendMessage({ data: overlayEnabled, from: "tab", subject: "overlayEnabledData"})
     } else if (msg.from === "popup" && msg.subject == "toggleOverlayEnabled") {
       overlayEnabled = !overlayEnabled;
+    } else if (msg.from === "popup" && msg.subject == "setSpeedValue") {
+      chrome.runtime.sendMessage({ data: relativeSpeed, from: "tab", subject: "setSpeedValue"})
+    } else if (msg.from === "popup" && msg.subject == "speedUpdate") {
+      relativeSpeed = parseInt(msg.data)
     }
   });
 

@@ -77,3 +77,24 @@ h2 {
 .overlay-disabled:hover {
   background-color: #606160;
 }
+
+.speed-container {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+select {
+  padding: 5px 10px;
+  border: 1px solid #ecefef;
+  margin-left: 5px;
+}
+
+select:hover {
+  cursor: pointer;
+}
+
+select:focus {
+  border: 1px solid #ecefef;
+}
