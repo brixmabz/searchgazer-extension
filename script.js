@@ -40,11 +40,12 @@ webgazer
         let currentElement = document.elementFromPoint(xTotal, yTotal);
         xTotal = moveXRelative(xTotal);
         yTotal = moveYRelative(yTotal);
-        if ((xTotal >= window.innerWidth * 0.85) && overlayEnabled) {
-          $(".overlay").css("right", "0");
-        } else {
-          $(".overlay").css("right", "-15%");
-        }
+        // if ((xTotal >= window.innerWidth * 0.85) && overlayEnabled) {
+        //   $(".overlay").css("right", "0");
+        // } else {
+        //   $(".overlay").css("right", "-15%");
+        // }
+        $(".overlay").css("opacity", overlayEnabled ? "1" : "0");
         moveCircle(xTotal, yTotal);
         gazeClick(xTotal, yTotal);
 

@@ -79,7 +79,7 @@
   position: fixed;
   width: 200px;
   height: 75vh;
-  right: -15%;
+  right: 0;
   top: 50%;
   transform: translate(0, -50%);
   background-color: rgb(66, 66, 66);
