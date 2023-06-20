@@ -46,6 +46,7 @@ webgazer
         //   $(".overlay").css("right", "-15%");
         // }
         $(".overlay").css("opacity", overlayEnabled ? "1" : "0");
+        $(".overlay").css("pointerEvents", overlayEnabled ? "all" : "none");
         moveCircle(xTotal, yTotal);
         gazeClick(xTotal, yTotal);
 
