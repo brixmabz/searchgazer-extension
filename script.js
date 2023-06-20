@@ -271,15 +271,21 @@ async function gazeClick(x, y) {
     // if(scale >= 3) {
     webgazer.pause();
     if(!(( x < 0 || x > window.innerWidth ) || ( y < 0 || y > window.innerHeight ))) {
-      setClicksCount();
-      await document.elementFromPoint(x, y).click();
-    }
-    let setCircleShadow = document.getElementById("gazer-circle-shadow");
-    if(setCircleShadow) {
-      setCircleShadow.classList.add("gazer-circle-click");
-      setTimeout(() => {
-        setCircleShadow.classList.remove("gazer-circle-click");
-      }, 500)
+      let el = document.elementFromPoint(x, y);
+      console.log(el.classList.contains("webgazer-clickable") ? "Element Clickable" : "Element Not Clickable")
+      console.log(el.closest(".webgazer-clickable") ? "Parent Clickable" : "Parent Not Clickable")
+      if (el.classList.contains("webgazer-clickable") || el.closest(".webgazer-clickable")) {
+        setClicksCount();
+        await el.click();
+        
+        let setCircleShadow = document.getElementById("gazer-circle-shadow");
+        if(setCircleShadow) {
+          setCircleShadow.classList.add("gazer-circle-click");
+          setTimeout(() => {
+            setCircleShadow.classList.remove("gazer-circle-click");
+          }, 500)
+        }
+      }
     }
     xClick.splice(0, xClick.length);
     yClick.splice(0, yClick.length);
