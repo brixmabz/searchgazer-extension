@@ -17,6 +17,7 @@
         "*://eye-tracking-youtube.com.trigl-demo.com/*"
       ],
       "js": [
+        "js/global.js",
         "jquery.js",
         "webgazer.js",
         "overlay.js",

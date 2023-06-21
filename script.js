@@ -36,7 +36,7 @@ webgazer
       yTotal /= pointsData.length;
       pointsData = [];
 
-      if (xTotal && yTotal) {
+      if (xTotal && yTotal && isWebgazerExtensionRunning) {
         let currentElement = document.elementFromPoint(xTotal, yTotal);
         xTotal = moveXRelative(xTotal);
         yTotal = moveYRelative(yTotal);
@@ -51,8 +51,8 @@ webgazer
         gazeClick(xTotal, yTotal);
 
         if (currentElement) {
-          clickerFunction(currentElement);
-          scrollerFunction(currentElement);
+          // clickerFunction(currentElement);
+          // scrollerFunction(currentElement);
           bookmarkFunction(currentElement);
         }
 
