@@ -272,8 +272,6 @@ async function gazeClick(x, y) {
     webgazer.pause();
     if(!(( x < 0 || x > window.innerWidth ) || ( y < 0 || y > window.innerHeight ))) {
       let el = document.elementFromPoint(x, y);
-      console.log(el.classList.contains("webgazer-clickable") ? "Element Clickable" : "Element Not Clickable")
-      console.log(el.closest(".webgazer-clickable") ? "Parent Clickable" : "Parent Not Clickable")
       if (el.classList.contains("webgazer-clickable") || el.closest(".webgazer-clickable")) {
         setClicksCount();
         await el.click();
