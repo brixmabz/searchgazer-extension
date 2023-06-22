@@ -1,7 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Eye Searcher",
-  "version": "0.1.0",
+  "name": "Webcam Eye-Tracking Browwser Extension",
+  "version": "0.9.0",
+  "description": "This is a thesis study in MSU-IIT, Iligan City, Philippines. It is a Webcam Eye-Tracking Browser Extension for general navigation",
   "content_scripts": [
     {
       "matches": [
