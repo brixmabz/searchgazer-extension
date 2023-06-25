@@ -1,17 +1,12 @@
 {
   "manifest_version": 2,
-  "name": "Eye Searcher",
-  "version": "0.1.0",
+  "name": "Webcam Eye-Tracking Browwser Extension",
+  "version": "0.9.0",
+  "description": "This is a thesis study in MSU-IIT, Iligan City, Philippines. It is a Webcam Eye-Tracking Browser Extension for general navigation",
   "content_scripts": [
     {
       "matches": [
-        "https://www.google.com/",
-        "https://webgazer-calibration-thesis.herokuapp.com/calibration.html",
-        "http://127.0.0.1:5500/tictactoe.html",
-        "file:///C:/Users/chuck/Desktop/tictactoe/improvements/tictactoe.html",
         "*://tictactoe.com.trigl-demo.com/*",
-        "http://localhost:8080/*",
-        "http://localhost:8000/*",
         "*://eye-tracking-look-to-speak-web.com.trigl-demo.com/*",
         "*://eye-tracking-food-menu.com.trigl-demo.com/*",
         "*://eye-tracking-youtube.com.trigl-demo.com/*"
