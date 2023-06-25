@@ -272,10 +272,10 @@ async function gazeClick(x, y) {
     webgazer.pause();
     if(!(( x < 0 || x > window.innerWidth ) || ( y < 0 || y > window.innerHeight ))) {
       let el = document.elementFromPoint(x, y);
-      if (el.classList.contains("webgazer-clickable") || el.closest(".webgazer-clickable")) {
+      if (el && (el.classList.contains("webgazer-clickable") || el.closest(".webgazer-clickable"))) {
         setClicksCount();
         await el.click();
-        
+
         let setCircleShadow = document.getElementById("gazer-circle-shadow");
         if(setCircleShadow) {
           setCircleShadow.classList.add("gazer-circle-click");
